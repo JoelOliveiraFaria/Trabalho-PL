@@ -1,0 +1,14 @@
+IMPORT TABLE produtos FROM "produtos.csv";
+
+SELECT * FROM produtos WHERE preco > 100 AND stock > 0 LIMIT 5;
+
+CREATE TABLE tabela_barata SELECT nome, preco FROM produtos WHERE preco < 50;
+
+EXPORT TABLE tabela_barata AS "baratos.csv";
+
+PROCEDURE limpa_tabela DO
+    CREATE TABLE vazia SELECT * FROM produtos WHERE stock = 0;
+    EXPORT TABLE vazia AS "sem_stock.csv";
+END;
+
+CALL limpa_tabela;
